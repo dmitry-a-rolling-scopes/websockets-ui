@@ -38,6 +38,10 @@ export class Database {
     return this.players.get(id) as Player;
   };
 
+  public hasPlayer(username: string): boolean {
+    return this.players.has(username);
+  }
+
   public addGame(game: Game): Database {
     this.games.set(game.id, game);
 

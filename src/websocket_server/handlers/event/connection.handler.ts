@@ -1,13 +1,14 @@
-import { RawData, WebSocket } from 'ws';
+import { RawData } from 'ws';
 import { IncomingMessage } from 'node:http';
 import { ConsoleLogger } from '../../utils/console.logger';
 import { MessageHandler } from './connection/message.handler';
+import { PlayerWebSocket } from '../../interfaces/web-socket.player.interface';
 
 export class ConnectionHandler {
   public static handle = (
-    webSocket: WebSocket,
+    webSocket: PlayerWebSocket,
     request: IncomingMessage,
-    webSocketClients: Set<WebSocket>,
+    webSocketClients: Set<PlayerWebSocket>,
   ): void => {
     webSocketClients.add(webSocket);
 

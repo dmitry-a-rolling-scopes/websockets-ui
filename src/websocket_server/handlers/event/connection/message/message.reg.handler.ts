@@ -10,26 +10,27 @@ export class RegHandler {
     webSocket: PlayerWebSocket,
     request: RegRequest,
   ): RegResponse {
-    const player = new Player(
-      webSocket,
-      request.data.name,
-      request.data.password,
-    );
+    const username = request.data.name;
+    const player = new Player(webSocket, username, request.data.password);
 
-    webSocket.player = player;
-
+    const databaseHasPlayer = State.database.hasPlayer(username);
     const response: RegResponse = {
       type: MessageType.REG,
       data: {
-        name: player.username,
+        name: username,
         index: player.id,
-        error: false, // todo: add validation
-        errorText: '',
+        error: databaseHasPlayer,
+        errorText: databaseHasPlayer
+          ? `User with username "${username}" already exists`
+          : '',
       },
       id: 0,
     };
 
-    State.database.addPlayer(player);
+    if (!databaseHasPlayer) {
+      webSocket.player = player;
+      State.database.addPlayer(player);
+    }
 
     return response;
   }

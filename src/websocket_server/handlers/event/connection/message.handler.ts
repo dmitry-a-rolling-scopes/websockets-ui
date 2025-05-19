@@ -41,6 +41,12 @@ export class MessageHandler {
             webSocket,
             registrationRequest,
           );
+
+          if (registrationResponse.data.error) {
+            ResponseHandler.handle(webSocket, registrationResponse);
+            break;
+          }
+
           const registeredPlayer = State.database.getPlayer(
             registrationResponse.data.index,
           );
