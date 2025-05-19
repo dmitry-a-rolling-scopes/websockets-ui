@@ -3,7 +3,6 @@ import { WebSocketCloseCode } from '../../enums/websocket.close-code.enum';
 import { ProcessExitCode } from '../../enums/process.exit-code.enum';
 import { Server } from 'node:http';
 import { ConsoleLogger } from '../../utils/console.logger';
-import { DataFormatter } from '../../utils/websocket.data.formatter';
 
 export class SignalHandler {
   public static handle = (
@@ -14,7 +13,7 @@ export class SignalHandler {
     webSocketClients.forEach((webSocket: WebSocket): void => {
       ConsoleLogger.logWarning('WebSocket closed');
 
-      webSocket.send(DataFormatter.format('going_away'));
+      webSocket.send(JSON.stringify('going_away'));
       webSocket.close(WebSocketCloseCode.GOING_AWAY);
     });
 

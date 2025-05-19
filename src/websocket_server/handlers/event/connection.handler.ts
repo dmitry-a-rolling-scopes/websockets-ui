@@ -1,7 +1,7 @@
 import { RawData, WebSocket } from 'ws';
 import { IncomingMessage } from 'node:http';
 import { ConsoleLogger } from '../../utils/console.logger';
-import { DataFormatter } from '../../utils/websocket.data.formatter';
+import { MessageHandler } from './connection/message.handler';
 
 export class ConnectionHandler {
   public static handle = (
@@ -14,11 +14,11 @@ export class ConnectionHandler {
     const ip = request.socket.remoteAddress;
     ConsoleLogger.logSuccess(`Client "${ip}" connected`);
 
-    webSocket.send(DataFormatter.format('handshake'));
+    webSocket.send(JSON.stringify('handshake'));
 
-    webSocket.on('message', (message: RawData): void => {
-      console.log(`Message: ${message}`);
-    });
+    webSocket.on('message', (message: RawData): void =>
+      MessageHandler.handle(webSocket, message),
+    );
 
     webSocket.on('close', (): void => {
       webSocketClients.delete(webSocket);
