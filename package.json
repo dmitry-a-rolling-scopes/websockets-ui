@@ -6,14 +6,31 @@
     "type": "module",
     "scripts": {
         "start": "node ./index.js",
+        "start:server": "webpack && node ./dist/websocket_server/index.js",
         "start:dev": "nodemon ./index.js",
+        "start:server:dev": "tsx watch ./src/websocket_server/index.ts",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "author": "Andrei Auchynnikau",
     "keywords": [],
     "license": "ISC",
     "devDependencies": {
-        "nodemon": "^2.0.16"
+        "@eslint/eslintrc": "^3.3.1",
+        "@eslint/js": "^9.27.0",
+        "@types/node": "^22.15.17",
+        "@types/ws": "^8.18.1",
+        "@typescript-eslint/eslint-plugin": "^8.32.1",
+        "@typescript-eslint/parser": "^8.32.1",
+        "eslint": "^8.57.1",
+        "eslint-config-prettier": "^10.1.5",
+        "eslint-plugin-prettier": "^5.4.0",
+        "nodemon": "^2.0.16",
+        "prettier": "^3.5.3",
+        "ts-loader": "^9.5.2",
+        "tsx": "^4.19.4",
+        "typescript": "^5.8.3",
+        "webpack": "^5.99.8",
+        "webpack-cli": "^6.0.1"
     },
     "dependencies": {
         "ws": "^8.8.0"
